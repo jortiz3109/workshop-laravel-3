@@ -8,8 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'code' => $faker->unique()->swiftBicNumber,
+        'code' => substr($faker->unique()->swiftBicNumber, 0, 6),
         'description' => $faker->realText('200'),
-        'price' => $faker->randomFloat(2),
+        'price' => $faker->randomNumber(5),
     ];
 });

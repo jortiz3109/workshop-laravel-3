@@ -17,4 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/* Admin routes */
+Route::namespace('Admin')
+    ->prefix('admin')
+    ->as('admin.')
+    ->middleware(['auth', 'verified'])
+    ->group(base_path('routes/admin/web.php'));
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/home', 'HomeController@index')->name('home');
+});
