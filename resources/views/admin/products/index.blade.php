@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('admin-content')
     <div class="card card-default">
-        <div class="card-header d-flex justify-content-between">
-            <h5>{{ __('Index of products') }}</h5>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">{{ __('Index of products') }}</h5>
             @include('layouts.__search', ['route' => route('admin.products.index')])
         </div>
         <table class="table table-striped table-borderless">
@@ -22,7 +22,7 @@
                             {{ $product->code }}
                         </td>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $product->formattedPrice() }}</td>
+                        <td>{{ $product->priceFormatted() }}</td>
                         <td class="text-right">
                             <b-button-toolbar class="float-right">
                                 <b-button-group size="sm">
@@ -32,6 +32,9 @@
                                     <b-button href="{{ route('admin.products.edit', $product) }}" variant="link" data-balloon-pos="up" aria-label="{{ __('Edit') }}">
                                         <i aria-hidden="true" class="fas fa-fw fa-edit"></i>
                                     </b-button>
+                                    <p-delete-button class="text-danger" variant="link" size="sm" action="{{ route('admin.products.destroy', $product) }}">
+                                        <i aria-hidden="true" class="fas fa-fw fa-trash"></i>
+                                    </p-delete-button>
                                 </b-button-group>
                             </b-button-toolbar>
                         </td>
@@ -49,9 +52,7 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-3 d-flex justify-content-center">
-        {{ $products->appends(Request::only('search'))->links() }}
-    </div>
+    @include('layouts.__paginator', ['paginator' => $products])
 @endsection
 @push('admin-left-top')
     <b-button variant="secondary" class="text-left" href="{{ route('admin.products.create') }}" block>
@@ -59,3 +60,4 @@
     </b-button>
     <hr>
 @endpush
+@include('layouts.__delete_modal')

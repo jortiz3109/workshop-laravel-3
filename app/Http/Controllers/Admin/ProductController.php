@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Products\StoreProductRequest;
+use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::search($request->input('search'))->paginate();
+        $products = Product::search($request->input('search'))
+            ->orderBy('id', $request->get('sort', config('app.sort_direction')))
+            ->paginate();
 
         return response()->view('admin.products.index', compact('products'));
     }
@@ -35,12 +39,21 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreProductRequest $request
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request, Product $product)
     {
-        //
+        $product->code = $request->input('code');
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+
+        $product->save();
+
+        return redirect()->route('admin.products.show', $product)->withSuccess(__('The product was successfully created'));
+
     }
 
     /**
@@ -51,7 +64,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response()->view('admin.products.show', compact('product'));
     }
 
     /**
@@ -62,29 +75,39 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return response()->view('admin.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Product  $product
+     * @param UpdateProductRequest $request
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->code = $request->input('code');
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+
+        $product->save();
+
+        return redirect()->route('admin.products.show', $product)->withSuccess(__('The product was successfully updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
-        //
+        //$product->delete();
+
+        return redirect()->route('admin.products.index')->withSuccess(__('The product was successfully deleted'));
     }
 }

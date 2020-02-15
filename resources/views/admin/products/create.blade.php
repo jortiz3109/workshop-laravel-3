@@ -2,7 +2,7 @@
 @section('admin-content')
     <div class="card card-default">
         <div class="card-header">
-            <h5>{{ __('Create new product') }}</h5>
+            <h5 class="mb-0">{{ __('Create new product') }}</h5>
         </div>
         <p-form action="{{ route('admin.products.store') }}" method="POST">
             @include('admin.products.__form')

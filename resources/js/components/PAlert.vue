@@ -8,12 +8,6 @@
         @dismiss-count-down="countDownChanged"
     >
         <slot/>
-        <b-progress
-            :variant="variant"
-            :max="dismissSecs"
-            :value="dismissCountDown"
-            height="4px"
-        />
     </b-alert>
 </template>
 

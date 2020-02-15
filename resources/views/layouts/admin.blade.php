@@ -14,6 +14,7 @@
             @stack('admin-left-bottom')
         </div>
         <div class="col-10">
+            @include('layouts.__alert')
             @yield('admin-content')
         </div>
     </div>

@@ -5,10 +5,12 @@ namespace App;
 use App\Helpers\MoneyHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Money\Currency;
 
 /**
  * @property string price
+ * @property string code
+ * @property string name
+ * @property string description
  */
 class Product extends Model
 {
@@ -18,20 +20,6 @@ class Product extends Model
     public function priceFormatted(): string
     {
         return MoneyHelper::format($this->price, config('app.system_currency'));
-    }
-
-    public function priceAmount(): ?string
-    {
-        if ($this->price) {
-            return MoneyHelper::amount($this->price, config('app.system_currency'));
-        }
-
-        return null;
-    }
-
-    public function setPriceAttribute($price)
-    {
-        $this->attributes['price'] = MoneyHelper::normalize($price, new Currency(config('app.system_currency')));
     }
 
     /**
