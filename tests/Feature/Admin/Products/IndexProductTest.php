@@ -8,7 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class IndexProductTests extends TestCase
+class IndexProductTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -36,7 +36,7 @@ class IndexProductTests extends TestCase
      * @test
      * @return void
      */
-    public function unauthorizedUsersCannotAccessTheProductsIndex()
+    public function unAuthorizedUsersCannotAccessTheProductsIndex()
     {
         $this->get(route('admin.products.index'))
             ->assertRedirect(route('login'));
@@ -48,7 +48,7 @@ class IndexProductTests extends TestCase
      * @test
      * @return void
      */
-    public function theIndexOfFranchiseHasFranchise()
+    public function theIndexOfProductHasProducts()
     {
         factory(Product::class, 5)->create();
         $user = factory(User::class)->create();
@@ -64,7 +64,7 @@ class IndexProductTests extends TestCase
      * @test
      * @return void
      */
-    public function theIndexOfFranchiseHasFranchisePaginated()
+    public function theIndexOfProductHasProductPaginated()
     {
         factory(Product::class, 5)->create();
         $user = factory(User::class)->create();

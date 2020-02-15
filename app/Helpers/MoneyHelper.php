@@ -4,9 +4,9 @@ namespace App\Helpers;
 
 class MoneyHelper
 {
-    public static function format($value): string
+    public static function format($value, $locale): string
     {
-        setlocale(LC_MONETARY, config('app.monetary_locale'));
+        setlocale(LC_MONETARY, $locale);
         return money_format('%.2n', $value);
     }
 }

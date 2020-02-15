@@ -9,6 +9,7 @@ return [
     ],
     'price' => [
         'label' => 'Price',
+        'placeholder' => '45000',
     ],
     'code' => [
         'label' => 'Code',

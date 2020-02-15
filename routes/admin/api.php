@@ -13,12 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-/* Admin routes */
-Route::namespace('Api\Admin')
-    ->prefix('admin')
-    ->as('api.admin.')
-    ->group(base_path('routes/admin/api.php'));
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('products', 'ProductController')->except(['edit', 'create']);

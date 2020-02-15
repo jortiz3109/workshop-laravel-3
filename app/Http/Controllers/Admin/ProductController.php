@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\StoreProductAction;
+use App\Actions\UpdateProductAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
@@ -41,19 +43,14 @@ class ProductController extends Controller
      *
      * @param StoreProductRequest $request
      * @param Product $product
+     * @param StoreProductAction $action
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request, Product $product)
+    public function store(StoreProductRequest $request, Product $product, StoreProductAction $action)
     {
-        $product->code = $request->input('code');
-        $product->name = $request->input('name');
-        $product->price = $request->input('price');
-        $product->description = $request->input('description');
-
-        $product->save();
+        $product = $action->execute($product, $request);
 
         return redirect()->route('admin.products.show', $product)->withSuccess(__('The product was successfully created'));
-
     }
 
     /**
@@ -83,16 +80,12 @@ class ProductController extends Controller
      *
      * @param UpdateProductRequest $request
      * @param Product $product
+     * @param UpdateProductAction $action
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $action)
     {
-        $product->code = $request->input('code');
-        $product->name = $request->input('name');
-        $product->price = $request->input('price');
-        $product->description = $request->input('description');
-
-        $product->save();
+        $product = $action->execute($product, $request);
 
         return redirect()->route('admin.products.show', $product)->withSuccess(__('The product was successfully updated'));
     }
@@ -106,7 +99,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //$product->delete();
+        $product->delete();
 
         return redirect()->route('admin.products.index')->withSuccess(__('The product was successfully deleted'));
     }

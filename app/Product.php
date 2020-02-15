@@ -19,7 +19,7 @@ class Product extends Model
      */
     public function priceFormatted(): string
     {
-        return MoneyHelper::format($this->price, config('app.system_currency'));
+        return MoneyHelper::format($this->price, config('app.monetary_locale'));
     }
 
     /**
