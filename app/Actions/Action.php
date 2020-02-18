@@ -17,5 +17,5 @@ abstract class Action implements ActionContract
         return $this->storeModel($model, $request);
     }
 
-    public abstract function storeModel(Model $model, Request $data): Model;
+    abstract public function storeModel(Model $model, Request $data): Model;
 }
