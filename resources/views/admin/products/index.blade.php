@@ -1,9 +1,25 @@
 @extends('layouts.admin')
 @section('admin-content')
+    @if($errors->any())
+        <p-alert variant="danger" dismiss="0">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </p-alert>
+    @endif
     <div class="card card-default">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{ __('Index of products') }}</h5>
-            @include('layouts.__search', ['route' => route('admin.products.index')])
+            <b-button-toolbar key-nav aria-label="{{ __('Toolbar for products') }}">
+                <b-button-group class="mx-1">
+                    <p-import-button size="sm" variant="secondary">
+                        <i class="fas fa fw fa-upload"></i> {{ __('Import') }}
+                    </p-import-button>
+                </b-button-group>
+                @include('layouts.__search', ['route' => route('admin.products.index')])
+            </b-button-toolbar>
         </div>
         <table class="table table-striped table-borderless">
             <thead>
@@ -61,3 +77,4 @@
     <hr>
 @endpush
 @include('layouts.__delete_modal')
+@include('layouts.__import_modal', ['action' => route('admin.products.import')])
