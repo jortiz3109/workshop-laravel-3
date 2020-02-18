@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\ImportProductsAction;
 use App\Actions\StoreProductAction;
 use App\Actions\UpdateProductAction;
-use App\Exceptions\ImportException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ImportProductRequest;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
-use App\Imports\ProductsImport;
 use App\Product;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
