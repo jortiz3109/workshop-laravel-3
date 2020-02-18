@@ -12,6 +12,8 @@ import PSelect from "./components/inputs/PSelect";
 import PAlert from "./components/PAlert";
 import PDeleteButton from "./components/buttons/PDeleteButton";
 import PDeleteModal from "./components/PDeleteModal";
+import PImportButton from "./components/buttons/PImportButton";
+import PImportModal from "./components/PImportModal";
 
 Vue.component("p-file-input", PFileInput);
 Vue.component("p-alert", PAlert);
@@ -20,6 +22,8 @@ Vue.component("p-textarea", PTextArea);
 Vue.component('p-select', PSelect);
 Vue.component('p-delete-button', PDeleteButton);
 Vue.component('p-delete-modal', PDeleteModal);
+Vue.component('p-import-button', PImportButton);
+Vue.component('p-import-modal', PImportModal);
 
 // Custom forms
 import PForm from "./components/forms/PForm";

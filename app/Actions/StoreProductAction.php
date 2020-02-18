@@ -3,7 +3,6 @@
 
 namespace App\Actions;
 
-
 use Highlight\Mode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

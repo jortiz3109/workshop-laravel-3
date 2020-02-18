@@ -12,6 +12,6 @@
 
 @if ($errors->any())
     <p-alert variant="danger" dismiss="0">
-        <p>{{ __('common.errors_encountered') }}</p>
+        <p>{{ __('Errors were found while processing your request') }}</p>
     </p-alert>
 @endif
