@@ -125,7 +125,5 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.products.index')->withSuccess("{$importedProducts} products were imported!");
-
     }
 }
-
